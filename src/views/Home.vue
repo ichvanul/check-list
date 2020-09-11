@@ -63,16 +63,10 @@ export default {
       axios.defaults.headers.common.Authorization = `Bearer ${JwtToken}`
       axios.delete(`http://18.141.178.15:8080/checklist/${data.id}`).then((result) => {
         if (result.data.statusCode === 2300) {
-          alert('Deleted!')
+          alert('Berhasil Dihapus!')
           this.$router.go()
         }
       })
-    },
-    showModal () {
-      document.querySelector('.modal-add').classList.add('showModal')
-    },
-    closeModal () {
-      document.querySelector('.modal-add').classList.remove('showModal')
     },
     addItem () {
       const JwtToken = localStorage.getItem('token')
@@ -86,6 +80,12 @@ export default {
           document.querySelector('.modal-add').classList.remove('showModal')
         }
       })
+    },
+    showModal () {
+      document.querySelector('.modal-add').classList.add('showModal')
+    },
+    closeModal () {
+      document.querySelector('.modal-add').classList.remove('showModal')
     }
   },
   mounted () {
@@ -134,7 +134,6 @@ export default {
 .label{
   width: 100%;
   height: 30px;
-  /* background-color: rgb(110, 89, 89); */
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -142,7 +141,7 @@ export default {
 }
 
 .label a{
-  background-color: darkorchid;
+  background-color: blue;
   color: #fff;
   padding: 7px 15px;
   border-radius: 5px;
