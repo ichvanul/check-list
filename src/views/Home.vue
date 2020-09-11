@@ -2,18 +2,15 @@
     <div class="container">
         <div class="box-get">
             <div class="label">
-                <h3>Get All Items</h3>
-                <a href="#" @click="showModal">Add New Item</a>
+                <h3>Table</h3>
+                <a href="#" @click="showModal">Add New To-Do-List</a>
             </div>
            <div class="head-tb">
                <div class="name-th">
-                   <h4>Name</h4>
+                   <h4>To-Do-List</h4>
                </div>
                <div class="check-th">
-                   <h4>Checklist</h4>
-               </div>
-               <div class="check-th">
-                   <h4>Delete</h4>
+                   <h4>Action</h4>
                </div>
            </div>
 
@@ -25,23 +22,19 @@
                    <h4>{{ data.name }}</h4>
                </div>
                <div class="check-th t-bg">
-                   <h4 :style="data.checklistCompletionStatus ? 'color: green' : 'color: red'">
-                       {{ data.checklistCompletionStatus === true ? '✔' : '✖' }}</h4>
-               </div>
-               <div class="check-th t-bg">
-                   <button @click="deleteItem(data)">delete</button>
+                   <button @click="deleteItem(data)">Delete</button>
                </div>
            </div>
         </div>
         <div class="modal-add">
             <form @submit.prevent="addItem" class="box-modal">
                 <div class="ttl">
-                    <h3>Add New Item</h3>
+                    <h3>Add New To-Do-List</h3>
                     <h3 @click="closeModal">X</h3>
                 </div>
-                <p>Name Item</p>
+                <p>To-Do-List</p>
                 <input type="text" placeholder="name" v-model="nameItem">
-                <button type="submit">Add</button>
+                <button type="submit">Save</button>
             </form>
         </div>
     </div>
@@ -63,7 +56,7 @@ export default {
       axios.defaults.headers.common.Authorization = `Bearer ${JwtToken}`
       axios.delete(`http://18.141.178.15:8080/checklist/${data.id}`).then((result) => {
         if (result.data.statusCode === 2300) {
-          alert('Berhasil Dihapus!')
+          alert('Data Deleted!')
           this.$router.go()
         }
       })
@@ -75,7 +68,7 @@ export default {
         name: this.nameItem
       }).then((result) => {
         if (result.data.statusCode === 2000) {
-          alert('Berhasil Add Data!')
+          alert('New Data Saved!')
           this.$router.go()
           document.querySelector('.modal-add').classList.remove('showModal')
         }
@@ -119,7 +112,7 @@ export default {
   width: 80vw;
   display: flex;
   margin: 0 auto;
-  background-color: rgb(218, 240, 240);
+  background-color: white;
   justify-content: center;
   position: relative;
 }
@@ -138,13 +131,16 @@ export default {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  outline: none;
 }
 
 .label a{
-  background-color: blue;
+  background-color: gray;
   color: #fff;
   padding: 7px 15px;
   border-radius: 5px;
+  outline: none;
+  text-decoration: none;
 }
 
 .box-get .label h3{
@@ -162,7 +158,6 @@ export default {
   align-items: center;
   background-color: rgb(167, 167, 167);
   padding: 10px;
-  /* border: 1px solid #cacaac; */
 }
 
 .check-th{
@@ -171,7 +166,6 @@ export default {
   align-items: center;
   background-color: rgb(167, 167, 167);
   padding: 10px;
-  /* border: 1px solid #cacaac; */
 }
 
 .check-th button{
